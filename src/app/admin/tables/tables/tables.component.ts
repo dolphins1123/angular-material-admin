@@ -11,17 +11,33 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['select', 'id', 'name', 'progress', 'color'];
+  displayedColumns = [ 'CustomerID','CompanyName', 'Address', 'City']; //'select',, 'CompanyName', 'Address', 'City'
   dataSource: MatTableDataSource<UserData>;
   selection: SelectionModel<UserData>;
 
+  //ken
+//searchModel: any = {'pageSize': 10 , 'pageNum': 1,'filters':''};
+  foo: UserData[];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(private readonly dataService: DataService) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.dataService.create100Users());
-    this.selection = new SelectionModel<UserData>(true, []);
+    let p1 = this.dataService.initData();
+    
+   
+    
+    Promise.all([p1]).then(values => {
+      console.log('p1=', values[0]); // [3, 1337, "foo"] 
+      this.foo = values[0];
+      console.log('foo  final=', this.foo);
+      this.dataSource = new MatTableDataSource(this.foo);
+   
+      this.selection = new SelectionModel<UserData>(true, []);
+    });
+    
+
+    
   }
 
   ngAfterViewInit() {
@@ -42,7 +58,10 @@ export class TablesComponent implements OnInit, AfterViewInit {
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
-
+  
+onRowClicked(row) {
+    console.log('Row clicked: ', row);
+}
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected()
