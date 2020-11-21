@@ -57,8 +57,17 @@
     </tr>
   </table>
 
-  <mat-paginator
+  <!-- <mat-paginator
     [pageSize]="10"
     [pageSizeOptions]="[5, 10, 25, 100]"
-  ></mat-paginator>
+  ></mat-paginator> -->
+  <!-- <mat-paginator
+    *ngIf="dataSource.page$ | async as page"
+    [length]="page.totalElements"
+    [pageSize]="page.size"
+    [pageIndex]="page.number"
+    [hidePageSize]="true"
+    (page)="dataSource.loadData('', 'asc', 10, 10)"
+  >
+  </mat-paginator> -->
 </section>
