@@ -57,17 +57,24 @@
     </tr>
   </table>
 
-  <!-- <mat-paginator
+  <mat-paginator
+    [length]="100"
     [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-  ></mat-paginator> -->
-  <!-- <mat-paginator
-    *ngIf="dataSource.page$ | async as page"
+    [pageIndex]="2"
+    [hidePageSize]="true"
+    [pageSizeOptions]="[10, 50, 100]"
+    (page)="dataSource.loadData('', 'asc', $event.pageIndex, 10)"
+  >
+  </mat-paginator>
+
+  <!-- 
+<mat-paginator
+    *ngIf="data.page$ | async as page"
     [length]="page.totalElements"
     [pageSize]="page.size"
     [pageIndex]="page.number"
     [hidePageSize]="true"
-    (page)="dataSource.loadData('', 'asc', 10, 10)"
+    (page)="data.fetch($event.pageIndex)"
   >
   </mat-paginator> -->
 </section>

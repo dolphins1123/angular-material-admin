@@ -20,6 +20,8 @@ export class TableDataSource implements DataSource<UserData> {
     pageIndex: number,
     pageSize: number
   ) {
+    console.log('pageIndex=', pageIndex)
+
     this.loadingSubject.next(true)
 
     this.tableService

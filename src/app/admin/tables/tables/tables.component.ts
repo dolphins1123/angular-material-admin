@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 import { SelectionModel } from '@angular/cdk/collections'
 import { TableDataSource } from '../../../services/TableDataSource'
-import { TableService } from '../../../services/Table.service'
+import { TableService, UserQuery } from '../../../services/Table.service'
 import { UserData } from '../../../model/domain'
 import { ActivatedRoute } from '@angular/router'
 import {
@@ -17,6 +17,8 @@ import {
 } from 'rxjs/operators'
 import { merge, fromEvent } from 'rxjs'
 import { ElementRef } from '@angular/core'
+import { Sort } from 'src/app/services/page'
+import { PaginatedDataSource } from 'src/app/services/paginated-datasource'
 
 @Component({
   selector: 'app-tables',
@@ -31,6 +33,9 @@ export class TablesComponent implements OnInit, AfterViewInit {
     'City',
     'management',
   ]
+
+  initialSort: Sort<UserData> = { property: 'CompanyName', order: 'asc' }
+
   dataSource: TableDataSource //@@ KEN MatTableDataSource<UserData>;
   selection: SelectionModel<UserData>
 
@@ -38,6 +43,9 @@ export class TablesComponent implements OnInit, AfterViewInit {
   //searchModel: any = {'pageSize': 10 , 'pageNum': 1,'filters':''};
   Customers: UserData[]
   Customer: UserData
+
+  data: any
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   @ViewChild(MatSort, { static: true }) sort: MatSort
@@ -53,8 +61,22 @@ export class TablesComponent implements OnInit, AfterViewInit {
 
     this.dataSource = new TableDataSource(this.tableService)
 
-    this.dataSource.loadData('', 'asc', 0, 10)
+     this.dataSource.loadData('', 'asc', 1, 10)
 
+    //way 3
+    // this.data = new PaginatedDataSource<UserData, UserQuery>(
+    //   //  (request, query) => this.tableService.page(request, query),
+    //   (request, query) => this.tableService.page(request, query),
+    //   this.initialSort,
+    //   { search: '' }, // 放查詢條件
+    //   1
+    // )
+
+    // console.log('data=', this.data)
+
+    //  this.dataSource = this.data
+
+    //以下PROMISE 寫法
     // let p1 = this.dataService.initData();
     // Promise.all([p1]).then(values => {
     //   console.log('p1=', values[0]); // [3, 1337, "foo"]
