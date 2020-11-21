@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { childRoutes } from './child-routes';
-
+import { TableResolver } from 'src/app/services/Table.resolver'
 
 const routes: Routes = [
   {

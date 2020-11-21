@@ -1,10 +1,6 @@
 <section id="sample-table" class="mat-elevation-z8 bg-white">
   <mat-form-field>
-    <input
-      matInput
-      (keyup)="applyFilter($event.target.value)"
-      placeholder="Filter"
-    />
+    <input matInput placeholder="Filter" />
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort class="w-100">
     <!-- <ng-container matColumnDef="select">
@@ -35,6 +31,20 @@
     <ng-container matColumnDef="City">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
       <td mat-cell *matCellDef="let row">{{ row.City }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="management">
+      <mat-header-cell *matHeaderCellDef>
+        <u>管理</u>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" (click)="onEdit(row)">
+          編輯
+        </button>
+        <button mat-raised-button color="warn" (click)="onDelete(row)">
+          刪除
+        </button>
+      </mat-cell>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

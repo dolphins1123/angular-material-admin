@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { TableService } from './services/Table.service';
+import { TableResolver } from './services/Table.resolver';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +18,9 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
-    SharedModule
+    SharedModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [TableService, TableResolver],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
